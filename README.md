@@ -9,10 +9,12 @@
 ### 🎬 Screen Recording Walkthrough
 Watch VidIntel in action—analyzing a video, seeking via timestamps, and executing grounded RAG Q&A:
 
+[![▶ Watch Full Screen Recording Demo](Screenshot/1.png)](https://github.com/ohm2905/youtube-video-intelligence/blob/main/Screen%20Recording/demo.mp4)
+
 <p align="center">
-  <video src="Screen%20Recording/demo.mp4" controls width="100%" poster="Screenshot/1.png">
-    Your browser does not support the video tag.
-  </video>
+  <a href="https://github.com/ohm2905/youtube-video-intelligence/blob/main/Screen%20Recording/demo.mp4">
+    <strong>▶ Click here to open and watch the full Demo Video (Screen Recording/demo.mp4)</strong>
+  </a>
 </p>
 
 ### 🖼️ Screenshots & Feature Walkthrough
