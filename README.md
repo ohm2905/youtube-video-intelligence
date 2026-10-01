@@ -6,18 +6,31 @@
 
 ## 📸 Interface Preview & Demo
 
-<p align="center">
-  <img src="assets/screenshot.png" alt="VidIntel Studio UI" width="100%" style="border-radius: 8px;">
-</p>
-
-### 🎬 Screen Recording Demo
-> Interactive demonstration showing timestamp seeking, topic verification, and grounded Q&A.
+### 🎬 Screen Recording Walkthrough
+Watch VidIntel in action—analyzing a video, seeking via timestamps, and executing grounded RAG Q&A:
 
 <p align="center">
-  <video src="assets/demo.mp4" controls width="100%" poster="assets/screenshot.png">
+  <video src="Screen%20Recording/demo.mp4" controls width="100%" poster="Screenshot/1.png">
     Your browser does not support the video tag.
   </video>
 </p>
+
+### 🖼️ Screenshots & Feature Walkthrough
+
+| **1. Main Interface & Split View** | **2. Grounded Q&A Assistant** |
+| :---: | :---: |
+| <img src="Screenshot/1.png" width="100%" alt="Main Interface" /> | <img src="Screenshot/2.png" width="100%" alt="Grounded Q&A" /> |
+| *Fixed app-shell with independent left-scroll & stationary Q&A* | *Answers strictly synthesized with clickable timestamp citations* |
+
+| **3. Structured Video Chapters** | **4. Topic Presence Verification** |
+| :---: | :---: |
+| <img src="Screenshot/3.png" width="100%" alt="Video Chapters" /> | <img src="Screenshot/4.png" width="100%" alt="Topic Presence Verification" /> |
+| *Automated chapter breakdown with subtopics & jump links* | *Instant semantic verification (YES / NO / PARTIALLY)* |
+
+| **5. Light & Dark Themes** | **6. System Architecture & Model Runtime** |
+| :---: | :---: |
+| <img src="Screenshot/5.png" width="100%" alt="Theme Switch" /> | <img src="Screenshot/6.png" width="100%" alt="Runtime Specs" /> |
+| *High-contrast editorial dark and clean light modes* | *Local Ollama + MPS Apple Metal hardware acceleration* |
 
 ---
 
