@@ -4,6 +4,23 @@
 
 ---
 
+## 📸 Interface Preview & Demo
+
+<p align="center">
+  <img src="assets/screenshot.png" alt="VidIntel Studio UI" width="100%" style="border-radius: 8px;">
+</p>
+
+### 🎬 Screen Recording Demo
+> Interactive demonstration showing timestamp seeking, topic verification, and grounded Q&A.
+
+<p align="center">
+  <video src="assets/demo.mp4" controls width="100%" poster="assets/screenshot.png">
+    Your browser does not support the video tag.
+  </video>
+</p>
+
+---
+
 ## ✨ Features & Capabilities
 
 - ⏱️ **Timestamp-Preserving Semantic Chunking**: Unlike naive text splitters that lose time coordinates, our sliding-window chunker preserves exact millisecond start and end boundaries (`start_time`, `end_time`, `start_timestamp`, `end_timestamp`) for every chunk.
