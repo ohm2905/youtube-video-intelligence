@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark light">
+    <title>VidIntel — YouTube Video Intelligence & Grounded Assistant</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem("yt_intel_theme") || "dark";
+            document.documentElement.setAttribute("data-theme", savedTheme);
+        })();
+    </script>
+</head>
+<body class="app-shell">
+
+    <!-- Top Header -->
+    <header class="app-header">
+        <div class="header-container">
+            <a href="/" class="brand-logo" aria-label="VidIntel Home">
+                <svg class="brand-logo-icon" width="26" height="26" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="32" height="32" rx="8" fill="url(#brand-grad)" />
+                    <path d="M12.5 10L22 16L12.5 22V10Z" fill="#ffffff" />
+                    <circle cx="23.5" cy="8.5" r="2.5" fill="#ffffff" />
+                    <defs>
+                        <linearGradient id="brand-grad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#EF4444" />
+                            <stop offset="1" stop-color="#BE123C" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <div class="brand-logo-wrap">
+                    <span class="brand-logo-text">VidIntel</span>
+                    <span class="brand-badge">STUDIO</span>
+                </div>
+            </a>
+
+            <div class="header-actions">
+                <span id="model-status-badge" class="status-pill">
+                    <span class="status-pill-dot"></span>
+                    <span>AI ready</span>
+                </span>
+                
+                <button type="button" id="theme-toggle-btn" class="btn-ghost" onclick="toggleTheme()" aria-label="Toggle theme">
+                    <span id="theme-toggle-icon">☼</span>
+                    <span id="theme-toggle-label">Light</span>
+                </button>
+
+                <button type="button" class="btn-ghost" onclick="toggleSystemModal()" title="View model and runtime details">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                    </svg>
+                    <span>System</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Viewport Body -->
+    <main class="app-body">
+        <!-- Top Video URL Input Section (Compact) -->
+        <section class="url-bar-section">
+            <div class="url-input-card">
+                <div class="url-input-group">
+                    <svg class="url-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                    </svg>
+                    <input 
+                        type="text" 
+                        id="youtube-url-input" 
+                        class="url-input-field" 
+                        placeholder="Paste YouTube link (e.g. https://www.youtube.com/watch?v=...)..." 
+                        value=""
+                        aria-label="YouTube Video URL"
+                    >
+                    <button id="analyze-btn" class="btn-primary-action" onclick="analyzeVideo()">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                        </svg>
+                        <span>Analyze Video</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Collapsible Processing Information -->
+            <details id="progress-card" class="processing-drawer d-none">
+                <summary class="processing-summary">
+                    <span>Indexing Pipeline</span>
+                    <span id="step-status-tag" style="color: var(--status-success);">Active</span>
+                </summary>
+                <div class="processing-body">
+                    <div id="step-1" class="step-item">⏳ Step 1: Downloading video metadata & transcript...</div>
+                    <div id="step-2" class="step-item">⏳ Step 2: Intelligent semantic chunking with timestamp preservation...</div>
+                    <div id="step-3" class="step-item">⏳ Step 3: Generating BGE-small embeddings & indexing in ChromaDB...</div>
+                </div>
+            </details>
+        </section>
+
+        <!-- Split Workspace (Left: Scrollable Media & Chapters | Right: Stationary Q&A Assistant) -->
+        <section class="workspace-container">
+            <div class="workspace-grid">
+                
+                <!-- Left: Scrollable Video Player, Chapters, and Topic Search -->
+                <div class="video-display-area">
+                    <!-- Video Player Container -->
+                    <div id="video-card">
+                        <div class="player-wrapper">
+                            <div id="video-placeholder" class="player-placeholder">
+                                <div class="placeholder-content">
+                                    <div class="placeholder-icon-wrap">
+                                        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                                            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                                        </svg>
+                                    </div>
+                                    <p class="placeholder-text">Enter a YouTube link above and click <strong>Analyze Video</strong></p>
+                                </div>
+                            </div>
+                            <div id="yt-player"></div>
+                        </div>
+                        <div class="video-meta-block" style="margin-top: 0.65rem;">
+                            <h1 id="video-title" class="video-heading">No video loaded</h1>
+                            <div class="video-meta-sub">
+                                <span class="channel-wrap">
+                                    <span id="video-channel">Waiting for video input</span>
+                                </span>
+                                <span class="meta-dot"></span>
+                                <span id="video-duration" class="duration-pill">--:--</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chapters & Topics Stream -->
+                    <div id="topics-section">
+                        <div class="section-header">
+                            <div class="section-title-wrap">
+                                <h2 class="section-title">Video Chapters</h2>
+                                <span class="section-badge">Indexed</span>
+                            </div>
+                            <span class="section-hint">Click timestamp to seek video</span>
+                        </div>
+                        <div id="topics-list" class="chapters-stream">
+                            <div style="padding: 1rem; color: var(--text-muted); font-size: 0.825rem; background: var(--bg-surface);">
+                                Chapters will appear here after analyzing a video.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Topic Presence Search -->
+                    <div class="topic-check-block">
+                        <div class="section-header" style="margin-bottom: 0.5rem;">
+                            <div class="section-title-wrap">
+                                <h3 class="section-title">Topic Verification</h3>
+                            </div>
+                            <span class="section-hint">Semantic coverage query</span>
+                        </div>
+                        <p class="topic-desc">
+                            Verify whether a specific concept, tool, or library is discussed in this video without watching the entire duration.
+                        </p>
+                        <form onsubmit="event.preventDefault(); checkTopic();" class="topic-search-form">
+                            <input 
+                                type="text" 
+                                id="topic-check-input" 
+                                class="topic-input-field" 
+                                placeholder="e.g. RLHF, LangGraph, LoRA, Context Window..."
+                            >
+                            <button type="submit" class="btn-secondary-action">Verify</button>
+                        </form>
+                        <div id="topic-check-result" class="topic-verdict-box d-none"></div>
+                    </div>
+
+                    <!-- Subtle bottom spacer for comfortable scroll end -->
+                    <div style="height: 1.5rem;"></div>
+                </div>
+
+                <!-- Right: 100% Stationary Grounded Q&A Assistant -->
+                <div id="qa-section" class="qa-pane">
+                    <div class="qa-header">
+                        <div class="qa-header-left">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent-red);">
+                                <path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"></path>
+                            </svg>
+                            <h2 class="qa-header-title">Q&A Assistant</h2>
+                        </div>
+                        <div class="qa-header-right">
+                            <span class="qa-grounded-pill">Grounded</span>
+                            <button type="button" class="btn-qa-icon" onclick="clearChat()" title="Reset conversation">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+                                    <path d="M3 3v5h5"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="chat-history" class="chat-stream">
+                        <div class="message-item assistant">
+                            <div class="message-body-assistant">
+                                <p>Ask any question about this video. Answers are strictly synthesized from spoken transcripts with clickable timestamps.</p>
+                                <div class="starter-prompts">
+                                    <button type="button" class="starter-chip" onclick="askStarter('What are the major stages of the LLM training pipeline?')">What are the major stages of the LLM training pipeline?</button>
+                                    <button type="button" class="starter-chip" onclick="askStarter('What is RLHF and why is it used?')">What is RLHF and why is it used?</button>
+                                    <button type="button" class="starter-chip" onclick="askStarter('Does this video discuss LangGraph?')">Does this video discuss LangGraph?</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="qa-footer">
+                        <form onsubmit="event.preventDefault(); askQuestion();" class="qa-input-wrapper">
+                            <input 
+                                type="text" 
+                                id="question-input" 
+                                class="qa-input-box" 
+                                placeholder="Ask about this video..."
+                                autocomplete="off"
+                            >
+                            <button type="submit" class="qa-send-btn" aria-label="Send question">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="12" y1="19" x2="12" y2="5"></line>
+                                    <polyline points="5 12 12 5 19 12"></polyline>
+                                </svg>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- System Info Modal Dialog -->
+    <dialog id="system-modal">
+        <div class="modal-dialog-content">
+            <div class="modal-header-row">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent-red);">
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                    </svg>
+                    <h3 style="font-size: 0.95rem; font-weight: 600; margin: 0;">Runtime Architecture</h3>
+                </div>
+                <button type="button" onclick="toggleSystemModal()" style="background: transparent; border: none; color: var(--text-muted); font-size: 1.25rem; cursor: pointer; line-height: 1;">&times;</button>
+            </div>
+            
+            <div style="display: flex; flex-direction: column; gap: 0.65rem;">
+                <div class="modal-row">
+                    <span style="color: var(--text-secondary);">Generation LLM</span>
+                    <span id="modal-llm-name" class="modal-val">llama3.2:3b</span>
+                </div>
+                <div class="modal-row">
+                    <span style="color: var(--text-secondary);">Embedding Model</span>
+                    <span id="modal-emb-name" class="modal-val">BAAI/bge-small-en-v1.5</span>
+                </div>
+                <div class="modal-row">
+                    <span style="color: var(--text-secondary);">Vector Database</span>
+                    <span class="modal-val">ChromaDB (Persistent)</span>
+                </div>
+                <div class="modal-row">
+                    <span style="color: var(--text-secondary);">Hardware Acceleration</span>
+                    <span style="font-weight: 500; color: var(--status-success);">Apple Metal (MPS) Active</span>
+                </div>
+                <div class="modal-row">
+                    <span style="color: var(--text-secondary);">Ollama Engine</span>
+                    <span id="modal-ollama-status" style="font-weight: 500; color: var(--status-success);">Connected</span>
+                </div>
+                <div class="modal-row" style="border-bottom: none; padding-top: 0.25rem;">
+                    <span style="color: var(--text-secondary);">API Documentation</span>
+                    <a href="/docs" target="_blank" class="btn-ghost" style="font-size: 0.75rem;">Swagger Specs ↗</a>
+                </div>
+            </div>
+
+            <div style="margin-top: 1.25rem; display: flex; justify-content: flex-end;">
+                <button type="button" class="btn-secondary-action" onclick="toggleSystemModal()">Close</button>
+            </div>
+        </div>
+    </dialog>
+
+    <!-- YouTube IFrame API -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script src="/js/app.js"></script>
+</body>
+</html>

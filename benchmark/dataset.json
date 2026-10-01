@@ -1,0 +1,67 @@
+[
+  {
+    "id": "q1",
+    "video_id": "bZQun8Y4L2A",
+    "video_title": "State of GPT | BRK216HFS",
+    "question": "What are the major stages of the LLM training pipeline discussed in the video?",
+    "expected_answer": "The stages are Pretraining, Supervised Fine-Tuning (SFT), Reward Modeling (RM), and Reinforcement Learning from Human Feedback (RLHF).",
+    "expected_start_time": 90.0,
+    "expected_end_time": 260.0,
+    "expected_start_timestamp": "01:30",
+    "expected_end_timestamp": "04:20",
+    "topic": "LLM Training Pipeline",
+    "is_covered": true
+  },
+  {
+    "id": "q2",
+    "video_id": "bZQun8Y4L2A",
+    "video_title": "State of GPT | BRK216HFS",
+    "question": "What is RLHF and how does Reinforcement Learning from Human Feedback work?",
+    "expected_answer": "RLHF trains a policy model to maximize rewards from a reward model trained on human preference comparison rankings.",
+    "expected_start_time": 660.0,
+    "expected_end_time": 940.0,
+    "expected_start_timestamp": "11:00",
+    "expected_end_timestamp": "15:40",
+    "topic": "RLHF",
+    "is_covered": true
+  },
+  {
+    "id": "q3",
+    "video_id": "bZQun8Y4L2A",
+    "video_title": "State of GPT | BRK216HFS",
+    "question": "What does Karpathy suggest about using Retrieval-Augmented Generation (retrieval / context stuffing) with LLMs?",
+    "expected_answer": "Karpathy discusses retrieving relevant documents and stuffing them into the context window of LLMs as working memory.",
+    "expected_start_time": 1860.0,
+    "expected_end_time": 2100.0,
+    "expected_start_timestamp": "31:00",
+    "expected_end_timestamp": "35:00",
+    "topic": "RAG and Retrieval",
+    "is_covered": true
+  },
+  {
+    "id": "q4",
+    "video_id": "bZQun8Y4L2A",
+    "video_title": "State of GPT | BRK216HFS",
+    "question": "Does this video explain LangGraph for agent orchestration?",
+    "expected_answer": "No, LangGraph is not mentioned in this video.",
+    "expected_start_time": null,
+    "expected_end_time": null,
+    "expected_start_timestamp": null,
+    "expected_end_timestamp": null,
+    "topic": "LangGraph",
+    "is_covered": false
+  },
+  {
+    "id": "q5",
+    "video_id": "bZQun8Y4L2A",
+    "video_title": "State of GPT | BRK216HFS",
+    "question": "Does this video discuss quantum computing algorithms?",
+    "expected_answer": "No, quantum computing is not discussed.",
+    "expected_start_time": null,
+    "expected_end_time": null,
+    "expected_start_timestamp": null,
+    "expected_end_timestamp": null,
+    "topic": "Quantum Computing",
+    "is_covered": false
+  }
+]

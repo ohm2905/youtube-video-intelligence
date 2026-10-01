@@ -1,0 +1,45 @@
+version: "3.8"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: yt_intelligence_app
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://yt_user:yt_password@postgres:5432/yt_intelligence_db
+      - CHROMA_PERSIST_DIRECTORY=/app/data/chroma_db
+      - OLLAMA_BASE_URL=http://host.docker.internal:11434
+      - DEFAULT_EMBEDDING_MODEL=BAAI/bge-small-en-v1.5
+      - DEFAULT_LLM_MODEL=llama3.2:3b
+    volumes:
+      - ./data:/app/data
+    depends_on:
+      postgres:
+        condition: service_healthy
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: yt_intelligence_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: yt_user
+      POSTGRES_PASSWORD: yt_password
+      POSTGRES_DB: yt_intelligence_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U yt_user -d yt_intelligence_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
