@@ -6,14 +6,18 @@
 
 ## 📸 Interface Preview & Demo
 
-### 🎬 Screen Recording Walkthrough
-Watch VidIntel in action—analyzing a video, seeking via timestamps, and executing grounded RAG Q&A:
-
-[![▶ Watch Full Screen Recording Demo](Screenshot/1.png)](https://github.com/ohm2905/youtube-video-intelligence/blob/main/Screen%20Recording/demo.mp4)
+### 🎬 Video Walkthrough Demo
+Watch VidIntel in full high-definition—analyzing a video, seeking via timestamps, and executing grounded RAG Q&A with local LLMs:
 
 <p align="center">
-  <a href="https://github.com/ohm2905/youtube-video-intelligence/blob/main/Screen%20Recording/demo.mp4">
-    <strong>▶ Click here to open and watch the full Demo Video (Screen Recording/demo.mp4)</strong>
+  <a href="https://drive.google.com/file/d/1mh35JfsxTDGHtPzXWqQrYs6wkeG5u12t/view?usp=sharing" target="_blank">
+    <img src="Screenshot/1.png" alt="Watch High-Res Demo on Google Drive" width="90%" style="border-radius: 8px;" />
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://drive.google.com/file/d/1mh35JfsxTDGHtPzXWqQrYs6wkeG5u12t/view?usp=sharing" target="_blank">
+    <img src="https://img.shields.io/badge/▶_Watch_Full_HD_Demo-Google_Drive-4285F4?style=for-the-badge&logo=googledrive&logoColor=white" alt="Watch Full HD Demo on Google Drive" />
   </a>
 </p>
 
